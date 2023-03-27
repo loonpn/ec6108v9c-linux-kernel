@@ -72,6 +72,11 @@ struct ir_raw_event_ctrl {
 		bool is_nec_x;
 		bool necx_repeat;
 	} nec;
+	struct nec_dec_ext {
+		int state;
+		unsigned count;
+		u64 bits;
+	} nec_ext;
 #endif
 #if IS_ENABLED(CONFIG_IR_RC5_DECODER)
 	struct rc5_dec {
