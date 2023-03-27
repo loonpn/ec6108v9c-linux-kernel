@@ -8,7 +8,7 @@ What you need?
 
 
 Prepare the compiler:
-  ``sudo apt install -y unzip p7zip gcc make gettext bison flex bc zlib1g-dev libncurses5-dev lzma libssl-dev gcc-arm-linux-gnueabi``
+  ``sudo apt install -y gcc make gettext bison flex bc zlib1g-dev libncurses5-dev lzma libssl-dev gcc-arm-linux-gnueabi``
 Copy and change the configuration:
   ``make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- hi3798mv100_defconfig``
   ``make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig``
@@ -16,7 +16,7 @@ Compile the kernel:
   ``make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j$(nproc)``
 Make flashable image:
   ``cat arch/arm/boot/zImage arch/arm/boot/dts/$chip.dtb > zImage-dtb``
-  ``mkimage -A arm -O linux -T kernel -C none -a 0X2000000 -e 0X2000000 -n $linux -d zImage-dtb uImage``
+  ``mkimage -A arm -O linux -T kernel -C none -a 0X2000000 -e 0X2000000 -n linux -d zImage-dtb uImage``
 Flash uImage file into your board with Hitool.
 
 
