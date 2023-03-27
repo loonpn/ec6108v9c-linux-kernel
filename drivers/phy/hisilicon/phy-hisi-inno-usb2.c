@@ -20,12 +20,24 @@
 #define PHY_CLK_STABLE_TIME	2	/* unit:ms */
 #define UTMI_RST_COMPLETE_TIME	2	/* unit:ms */
 #define POR_RST_COMPLETE_TIME	300	/* unit:us */
+
 #define PHY_TEST_DATA		GENMASK(7, 0)
+#define PHY_TEST_ADDR_OFFSET	8
+#ifdef CONFIG_ARM64
 #define PHY_TEST_ADDR		GENMASK(15, 8)
+#define PHY_TEST_PORT_OFFSET	16
 #define PHY_TEST_PORT		GENMASK(18, 16)
 #define PHY_TEST_WREN		BIT(21)
 #define PHY_TEST_CLK		BIT(22)	/* rising edge active */
 #define PHY_TEST_RST		BIT(23)	/* low active */
+#else
+#define PHY_TEST_ADDR		GENMASK(11, 8)
+#define PHY_TEST_PORT_OFFSET	12
+#define PHY_TEST_PORT		BIT(12)
+#define PHY_TEST_WREN		BIT(13)
+#define PHY_TEST_CLK		BIT(14)	/* rising edge active */
+#define PHY_TEST_RST		BIT(15)	/* low active */
+#endif
 #define PHY_CLK_ENABLE		BIT(2)
 
 struct hisi_inno_phy_port {
@@ -47,8 +59,8 @@ static void hisi_inno_phy_write_reg(struct hisi_inno_phy_priv *priv,
 	u32 val;
 
 	val = (data & PHY_TEST_DATA) |
-	      ((addr << 8) & PHY_TEST_ADDR) |
-	      ((port << 16) & PHY_TEST_PORT) |
+	      ((addr << PHY_TEST_ADDR_OFFSET) & PHY_TEST_ADDR) |
+	      ((port << PHY_TEST_PORT_OFFSET) & PHY_TEST_PORT) |
 	      PHY_TEST_WREN | PHY_TEST_RST;
 	writel(val, reg);
 
