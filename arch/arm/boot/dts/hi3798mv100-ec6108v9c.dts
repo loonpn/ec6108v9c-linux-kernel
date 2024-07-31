@@ -1,0 +1,113 @@
+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+
+/dts-v1/;
+#include "hi3798mv100.dtsi"
+
+/ {
+	model = "Huawei EC6108V9C";
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		network {
+			label = "green:network";
+			gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		network-activity {
+			label = "red:network";
+			gpios = <&gpio2 2 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		ir {
+			label = "green:ir";
+			gpios = <&gpio5 2 GPIO_ACTIVE_HIGH>;
+			panic-indicator;
+			default-state = "off";
+		};
+	};
+};
+
+&timer1 {
+	status = "okay";
+};
+
+&timer2 {
+	status = "okay";
+};
+
+&timer3 {
+	status = "okay";
+};
+
+&timer4 {
+	status = "okay";
+};
+
+&uart0 {
+	status = "okay";
+};
+
+&gpio0 {
+	status = "okay";
+};
+
+&gpio2 {
+	status = "okay";
+};
+
+&gpio5 {
+	status = "okay";
+};
+
+&gpu {
+	status = "okay";
+};
+
+&mmc {
+	fifo-depth = <256>;
+	clock-frequency = <100000000>;
+	cap-mmc-highspeed;
+	mmc-ddr-1_8v;
+	mmc-hs200-1_8v;
+	non-removable;
+	status = "okay";
+};
+
+&sd {
+	status = "okay";
+};
+
+&eth0 {
+	status = "okay";
+};
+
+&ohci0 {
+	status = "okay";
+};
+
+&ehci0 {
+	status = "okay";
+};
+
+&ohci1 {
+	status = "okay";
+};
+
+&ehci1 {
+	status = "okay";
+};
+
+&wdt0 {
+	status = "okay";
+};
+
+&ir {
+	status = "okay";
+};
