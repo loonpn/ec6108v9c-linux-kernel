@@ -1,23 +1,27 @@
-How to build and install this kernel?
+Before you begin
 =====================================
 
-What you need?
-  1. Hitool flash tool.
-  2. Linux environment.
-  3. Linux basic command skills.
+It is recommended to install the latest precompiled kernel directly: https://github.com/loonpn/ec6108v9c-linux-kernel/releases/latest
 
+Simple steps:
+  1. Download uImage and modules.tar.gz files.
+  2. Unzip modules.tar.gz to the root directory.
+  3. Use HiTool or dd command to write uImage to the kernel partition.
+
+
+How to build this kernel?
+=====================================
 
 Prepare the compiler:
   ``sudo apt install -y gcc make gettext bison flex bc zlib1g-dev libncurses5-dev lzma libssl-dev gcc-arm-linux-gnueabi``
 Copy and change the configuration:
-  ``make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- hi3798mv100_defconfig``
-  ``make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig``
+  ``make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- hi3798mv100_defconfig``
+  ``make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig``
 Compile the kernel:
-  ``make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j$(nproc)``
+  ``make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j$(nproc)``
 Make flashable image:
   ``cat arch/arm/boot/zImage arch/arm/boot/dts/$chip.dtb > zImage-dtb``
   ``mkimage -A arm -O linux -T kernel -C none -a 0X2000000 -e 0X2000000 -n linux -d zImage-dtb uImage``
-Flash uImage file into your board with Hitool.
 
 
 Linux kernel
